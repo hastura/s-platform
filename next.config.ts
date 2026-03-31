@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
 
+const isProd = process.env.NODE_ENV === "production";
+
 const nextConfig: NextConfig = {
   output: "export",
-  basePath: "/s-platform",
+  basePath: isProd ? "/s-platform" : "",
   images: {
     unoptimized: true,
+  },
+  turbopack: {
+    root: __dirname,
   },
 };
 
