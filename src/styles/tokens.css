@@ -1,0 +1,243 @@
+/* ============================================================
+   Strativy Design System — CSS Custom Properties
+   Primary: #2563EB (Blue 600)
+   ============================================================ */
+
+:root {
+  /* ----------------------------------------------------------
+     COLOR PALETTE — Primary (Blue)
+     ---------------------------------------------------------- */
+  --color-primary-50:  #EFF6FF;
+  --color-primary-100: #DBEAFE;
+  --color-primary-200: #BFDBFE;
+  --color-primary-300: #93C5FD;
+  --color-primary-400: #60A5FA;
+  --color-primary-500: #3B82F6;
+  --color-primary-600: #2563EB; /* ← Brand primary */
+  --color-primary-700: #1D4ED8;
+  --color-primary-800: #1E40AF;
+  --color-primary-900: #1E3A8E;
+  --color-primary-950: #172554;
+
+  /* ----------------------------------------------------------
+     COLOR PALETTE — Neutral (Gray)
+     ---------------------------------------------------------- */
+  --color-neutral-50:  #F8FAFC;
+  --color-neutral-100: #F1F5F9;
+  --color-neutral-200: #E2E8F0;
+  --color-neutral-300: #CBD5E1;
+  --color-neutral-400: #94A3B8;
+  --color-neutral-500: #64748B;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1E293B;
+  --color-neutral-900: #0F172A;
+  --color-neutral-950: #020617;
+
+  /* Base */
+  --color-white: #FFFFFF;
+  --color-black: #020617;
+
+  /* ----------------------------------------------------------
+     COLOR PALETTE — Semantic
+     ---------------------------------------------------------- */
+
+  /* Success (Green) */
+  --color-success-50:  #F0FDF4;
+  --color-success-100: #DCFCE7;
+  --color-success-200: #BBF7D0;
+  --color-success-300: #86EFAC;
+  --color-success-400: #4ADE80;
+  --color-success-500: #22C55E;
+  --color-success-600: #16A34A;
+  --color-success-700: #15803D;
+  --color-success-800: #166534;
+  --color-success-900: #14532D;
+
+  /* Warning (Amber) */
+  --color-warning-50:  #FFFBEB;
+  --color-warning-100: #FEF3C7;
+  --color-warning-200: #FDE68A;
+  --color-warning-300: #FCD34D;
+  --color-warning-400: #FBBF24;
+  --color-warning-500: #F59E0B;
+  --color-warning-600: #D97706;
+  --color-warning-700: #B45309;
+  --color-warning-800: #92400E;
+  --color-warning-900: #78350F;
+
+  /* Danger (Red) */
+  --color-danger-50:  #FEF2F2;
+  --color-danger-100: #FEE2E2;
+  --color-danger-200: #FECACA;
+  --color-danger-300: #FCA5A5;
+  --color-danger-400: #F87171;
+  --color-danger-500: #EF4444;
+  --color-danger-600: #DC2626;
+  --color-danger-700: #B91C1C;
+  --color-danger-800: #991B1B;
+  --color-danger-900: #7F1D1D;
+
+  /* ----------------------------------------------------------
+     SEMANTIC ALIASES — OKR Goal Health
+     ---------------------------------------------------------- */
+  --color-goal-on-track:    var(--color-success-500); /* ≥ 70% */
+  --color-goal-at-risk:     var(--color-warning-500); /* 40–69% */
+  --color-goal-off-track:   var(--color-danger-500);  /* < 40% */
+
+  --color-goal-on-track-bg:  var(--color-success-50);
+  --color-goal-at-risk-bg:   var(--color-warning-50);
+  --color-goal-off-track-bg: var(--color-danger-50);
+
+  /* ----------------------------------------------------------
+     SEMANTIC ALIASES — UI Roles
+     ---------------------------------------------------------- */
+  --color-bg-page:      var(--color-neutral-50);
+  --color-bg-surface:   var(--color-white);
+  --color-bg-elevated:  var(--color-white);
+  --color-bg-subtle:    var(--color-neutral-100);
+
+  --color-border:       var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-300);
+
+  --color-text-primary:   var(--color-black);
+  --color-text-secondary: var(--color-neutral-600);
+  --color-text-tertiary:  var(--color-neutral-400);
+  --color-text-disabled:  var(--color-neutral-300);
+  --color-text-inverse:   var(--color-white);
+  --color-text-link:      var(--color-primary-600);
+
+  --color-action-primary:       var(--color-primary-600);
+  --color-action-primary-hover: var(--color-primary-800);
+  --color-action-primary-active:var(--color-primary-600);
+  --color-action-primary-text:  var(--color-white);
+
+  /* ----------------------------------------------------------
+     BUTTON STATES
+     ---------------------------------------------------------- */
+  --color-button-primary-default:  var(--color-primary-600);
+  --color-button-primary-hover:    var(--color-primary-800);
+  --color-button-primary-focus:    var(--color-primary-600);
+  --color-button-primary-active:   var(--color-primary-600);
+  --color-button-primary-disabled: var(--color-primary-400);
+
+  --color-button-secondary-default:  var(--color-white);
+  --color-button-secondary-hover:    var(--color-primary-200);
+  --color-button-secondary-focus:    var(--color-white);
+
+  --color-button-danger-default:  var(--color-danger-500);
+  --color-button-danger-hover:    var(--color-danger-600);
+  --color-button-danger-active:   var(--color-danger-600);
+  --color-button-danger-focus:    var(--color-danger-500);
+  --color-button-danger-disabled: var(--color-neutral-300);
+
+  --color-button-text-primary:   var(--color-primary-600);
+  --color-button-text-on-primary:var(--color-white);
+  --color-button-text-disabled:  var(--color-neutral-300);
+  --color-button-text-neutral:   var(--color-neutral-300);
+  --color-button-text-danger:    var(--color-danger-500);
+
+  /* ----------------------------------------------------------
+     TYPOGRAPHY
+     ---------------------------------------------------------- */
+  --font-family-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
+
+  /* Font sizes (rem) */
+  --font-size-xs:   0.75rem;   /* 12px */
+  --font-size-sm:   0.875rem;  /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg:   1.125rem;  /* 18px */
+  --font-size-xl:   1.25rem;   /* 20px */
+  --font-size-2xl:  1.5rem;    /* 24px */
+  --font-size-3xl:  1.875rem;  /* 30px */
+  --font-size-4xl:  2.25rem;   /* 36px */
+  --font-size-mono: 0.8125rem; /* 13px */
+
+  /* Line heights */
+  --line-height-xs:   18px;
+  --line-height-sm:   21px;
+  --line-height-base: 24px;
+  --line-height-lg:   25.2px;
+  --line-height-xl:   26px;
+  --line-height-2xl:  30px;
+  --line-height-3xl:  36px;
+  --line-height-4xl:  39.6px;
+  --line-height-mono: 19.5px;
+
+  /* Font weights */
+  --font-weight-regular:  400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+
+  /* Letter spacing */
+  --letter-spacing-tight:  -0.025em;
+  --letter-spacing-normal:  0em;
+  --letter-spacing-wide:    0.025em;
+  --letter-spacing-wider:   0.05em;
+  --letter-spacing-widest:  0.1em;
+
+  /* ----------------------------------------------------------
+     SPACING (4px base scale)
+     ---------------------------------------------------------- */
+  --space-0:   0px;
+  --space-0-5: 2px;
+  --space-1:   4px;
+  --space-1-5: 6px;
+  --space-2:   8px;
+  --space-2-5: 10px;
+  --space-3:   12px;
+  --space-3-5: 14px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-7:   28px;
+  --space-8:   32px;
+  --space-9:   36px;
+  --space-10:  40px;
+  --space-12:  48px;
+  --space-14:  56px;
+  --space-16:  64px;
+  --space-20:  80px;
+  --space-24:  96px;
+
+  /* ----------------------------------------------------------
+     BORDER RADIUS
+     ---------------------------------------------------------- */
+  --radius-none: 0px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-full: 9999px;
+
+  /* ----------------------------------------------------------
+     SHADOWS
+     ---------------------------------------------------------- */
+  --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+
+  /* ----------------------------------------------------------
+     Z-INDEX SCALE
+     ---------------------------------------------------------- */
+  --z-base:    0;
+  --z-raised:  10;
+  --z-dropdown:100;
+  --z-sticky:  200;
+  --z-overlay: 300;
+  --z-modal:   400;
+  --z-toast:   500;
+
+  /* ----------------------------------------------------------
+     TRANSITIONS
+     ---------------------------------------------------------- */
+  --duration-fast:   100ms;
+  --duration-normal: 200ms;
+  --duration-slow:   300ms;
+  --ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+}
