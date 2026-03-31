@@ -6,12 +6,6 @@ const imgCircleDot = 'https://www.figma.com/api/mcp/asset/4242d9a8-6e96-43b2-b75
 const imgCircleDotEmpty = 'https://www.figma.com/api/mcp/asset/31d02d96-c9fa-4182-8d3d-343620ce3722'
 const imgArrowUpRight = 'https://www.figma.com/api/mcp/asset/c1dddfb2-8cca-4146-ae4d-4fbeeb672fe1'
 
-// Stat card icons
-const imgTarget = 'https://www.figma.com/api/mcp/asset/5c22459b-03cf-42bb-add7-ba1c537fa3ca'
-const imgBuilding2 = 'https://www.figma.com/api/mcp/asset/8d54a332-491f-46e7-9719-073046af4cef'
-const imgTarget1 = 'https://www.figma.com/api/mcp/asset/81fe37ff-743f-48a3-a2f5-a777ac4f831c'
-const imgAward = 'https://www.figma.com/api/mcp/asset/0e67b258-e7c5-46ca-9bb1-bcd2fc5ac927'
-const imgAward1 = 'https://www.figma.com/api/mcp/asset/95f9f1f4-3514-4ba1-98af-9c350e48435a'
 
 const STATS = [
   {
@@ -198,6 +192,7 @@ export default function DashboardPage() {
         <button
           className="flex items-center gap-[8px] bg-[#2563eb] text-white text-[14px] font-semibold h-[40px] px-[16px] rounded-[12px] shadow-[0px_10px_15px_0px_rgba(59,130,246,0.25),0px_4px_6px_0px_rgba(59,130,246,0.25)] transition-colors hover:bg-blue-700"
         >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imgZap} alt="" className="w-[15px] h-[15px]" />
           New Check-in
         </button>
@@ -244,6 +239,7 @@ export default function DashboardPage() {
             <p className="text-[#0f172a] font-bold text-[16px] leading-[24px]">Recent Activity</p>
             <button className="flex items-center gap-[2px] text-[#2563eb] text-[12px] font-semibold leading-[16px]">
               View all
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imgArrowUpRight} alt="" className="w-[12px] h-[12px] ml-1" />
             </button>
           </div>
@@ -256,6 +252,7 @@ export default function DashboardPage() {
                 <div className="flex flex-col gap-[2px]">
                   <p className="text-[#0f172a] font-medium text-[14px] leading-[19.25px]">{activity.text}</p>
                   <div className="flex items-center gap-[4px]">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={imgClock} alt="" className="w-[10px] h-[10px]" />
                     <p className="text-[#64748b] font-normal text-[11px] leading-[16.5px]">{activity.time}</p>
                   </div>
@@ -281,6 +278,7 @@ export default function DashboardPage() {
                   <p className="text-[#0f172a] font-semibold text-[14px] leading-[20px]">{m.text}</p>
                   <p className="text-[#64748b] font-normal text-[11px] leading-[16.5px]">{m.date}</p>
                 </div>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={m.done ? imgCircleDot : imgCircleDotEmpty} alt="" className="w-[14px] h-[14px] shrink-0" />
               </div>
             ))}
@@ -306,6 +304,7 @@ export default function DashboardPage() {
                 {item.icon}
               </div>
               {/* Arrow */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={imgArrowUpRight} alt="" className="absolute right-[20px] top-[22px] w-[16px] h-[16px]" />
               {/* Title */}
               <p className="absolute left-[20px] top-[80px] text-[#0f172a] font-bold text-[16px] leading-[24px]">

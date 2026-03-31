@@ -104,7 +104,6 @@ export default function CompanySetupPage() {
         <div className="flex items-center">
           {STEPS.map((step, index) => {
             const isActive = index === currentStep
-            const isCompleted = index < currentStep
             return (
               <div key={step.id} className="flex items-center">
                 <button
