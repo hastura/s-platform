@@ -23,9 +23,10 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const storedCollapsed = localStorage.getItem('sidebar_collapsed') === 'true'
     const storedDark = localStorage.getItem('theme') === 'dark'
+    if (storedDark) document.documentElement.classList.add('dark')
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsCollapsed(storedCollapsed)
     setIsDark(storedDark)
-    if (storedDark) document.documentElement.classList.add('dark')
   }, [])
 
   function toggleCollapse() {

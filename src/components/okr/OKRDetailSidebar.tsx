@@ -124,7 +124,7 @@ export function OKRDetailSidebar({ isOpen, onClose, objective }: OKRDetailSideba
                   <span className="font-bold text-sm tracking-wide uppercase">AI Insight</span>
                 </div>
                 <p className="text-primary-50 text-[13px] leading-relaxed mb-4 opacity-90">
-                  Based on current velocity, this Objective is trending 12% ahead of schedule. We recommend shifting focus to "1M Active User Base" which is slightly lagging behind the target trajectory.
+                  Based on current velocity, this Objective is trending 12% ahead of schedule. We recommend shifting focus to &quot;1M Active User Base&quot; which is slightly lagging behind the target trajectory.
                 </p>
                 <Button variant="secondary" size="sm" className="bg-white/20 border-white/20 text-white hover:bg-white/30 backdrop-blur-sm h-9">
                   Analyze Gaps

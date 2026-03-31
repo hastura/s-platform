@@ -33,6 +33,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       if (auth !== 'true') {
         router.push('/login')
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setAuthenticated(true)
       }
     }
