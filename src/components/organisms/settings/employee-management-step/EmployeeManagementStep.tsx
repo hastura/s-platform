@@ -2,15 +2,18 @@
 
 import { useMemo, useState } from 'react'
 import { cn } from '@/lib/utils'
-import { Badge } from '@/components/atoms'
+import { Badge, Switch } from '@/components/atoms'
 import { Select } from '@/components/molecules'
 import { DataTable, type DataTableColumn } from '@/components/organisms/data-table/DataTable'
-import { IconEdit, IconSearch, IconTrash } from '@/components/icons'
+import { IconSearch, IconTrash } from '@/components/icons'
 import { useSettingsStore } from '@/lib/stores'
 import { mockDepartments } from '@/lib/mock'
 import type { EmploymentStatus, Member } from '@/types/settings'
 
-const EMPLOYMENT_BADGE: Record<EmploymentStatus, { label: string; variant: 'success' | 'warning' | 'invited' }> = {
+const EMPLOYMENT_BADGE: Record<
+  EmploymentStatus,
+  { label: string; variant: 'success' | 'warning' | 'invited' }
+> = {
   permanent: { label: 'Permanent', variant: 'success' },
   contract: { label: 'Contract', variant: 'warning' },
   probation: { label: 'Probation', variant: 'invited' },
@@ -28,19 +31,14 @@ const DEPT_FILTER_OPTIONS = [
   ...mockDepartments.map((d) => ({ value: d.name, label: d.name })),
 ]
 
-function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/)
-  if (parts.length >= 2) return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
-  return name.slice(0, 2).toUpperCase()
-}
-
 export interface EmployeeManagementStepProps {
   onRemoveRequest: (member: Member) => void
 }
 
-/** Employee Management table — Figma node 614:3789 (Organism/Employee Step). */
+/** Employee Management table — Figma EmployeeStep (Invite Members tab). */
 export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementStepProps) {
   const members = useSettingsStore((s) => s.members)
+  const toggleMemberActive = useSettingsStore((s) => s.toggleMemberActive)
 
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
@@ -51,54 +49,53 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
     return members.filter((m) => {
       if (statusFilter !== 'all' && m.status !== statusFilter) return false
       if (deptFilter !== 'all' && m.department !== deptFilter) return false
-      if (q && ![m.name, m.employeeId, m.position, m.email].some((v) => v.toLowerCase().includes(q))) return false
+      if (q && ![m.name, m.employeeId, m.position, m.department, m.email].some((v) => v.toLowerCase().includes(q))) {
+        return false
+      }
       return true
     })
   }, [members, search, statusFilter, deptFilter])
 
   const columns: DataTableColumn<Member>[] = [
     {
-      key: 'index',
-      header: '#',
-      widthClassName: 'w-[48px]',
-      render: (_m, index) => (
-        <span className="text-[var(--font-size-sm)] font-medium text-[var(--color-neutral-400)]">{index + 1}</span>
+      key: 'employeeId',
+      header: 'EMPLOYEE ID',
+      render: (m) => (
+        <span className="text-[var(--font-size-sm)] font-medium text-[var(--color-neutral-400)]">{m.employeeId}</span>
       ),
     },
     {
       key: 'name',
       header: 'NAME',
       render: (m) => (
-        <span className={cn('flex min-w-0 items-center gap-[var(--space-2)] pr-[var(--space-3)]', !m.active && 'opacity-50')}>
-          <span
-            aria-hidden="true"
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--color-neutral-100)] text-[10px] font-medium text-[var(--color-neutral-400)]"
-          >
-            {getInitials(m.name)}
-          </span>
-          <span className="truncate text-[var(--font-size-sm)] font-medium text-[var(--color-neutral-900)]">{m.name}</span>
+        <span
+          className={cn(
+            'text-[var(--font-size-sm)] font-semibold text-[var(--color-neutral-900)]',
+            !m.active && 'opacity-50'
+          )}
+        >
+          {m.name}
         </span>
       ),
     },
     {
-      key: 'position',
-      header: 'POSITION',
-      widthClassName: 'w-[200px]',
+      key: 'department',
+      header: 'DEPARTMENT',
       render: (m) => (
-        <span className="truncate pr-[var(--space-2)] text-[var(--font-size-sm)] font-normal text-[var(--color-neutral-600)]">{m.position}</span>
+        <span className="text-[var(--font-size-sm)] font-normal text-[var(--color-neutral-600)]">{m.department}</span>
       ),
     },
     {
-      key: 'email',
-      header: 'EMAIL',
+      key: 'position',
+      header: 'JOB POSITION',
       render: (m) => (
-        <span className="truncate pr-[var(--space-2)] text-[var(--font-size-sm)] font-normal text-[var(--color-neutral-600)]">{m.email}</span>
+        <span className="truncate text-[var(--font-size-sm)] font-normal text-[var(--color-neutral-600)]">{m.position}</span>
       ),
     },
     {
       key: 'status',
-      header: 'EMPLOYMENT',
-      widthClassName: 'w-[120px]',
+      header: 'STATUS',
+      widthClassName: 'w-[245px]',
       render: (m) => {
         const badge = EMPLOYMENT_BADGE[m.status]
         return (
@@ -111,16 +108,8 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
     {
       key: 'action',
       header: 'ACTION',
-      widthClassName: 'w-[120px]',
       render: (m) => (
-        <span className="flex items-center gap-[38px]">
-          <button
-            type="button"
-            aria-label={`Edit ${m.name}`}
-            className="text-[var(--color-neutral-500)] transition-colors hover:text-[var(--color-neutral-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
-          >
-            <IconEdit size={18} />
-          </button>
+        <div className="flex items-center gap-[38px]">
           <button
             type="button"
             onClick={() => onRemoveRequest(m)}
@@ -129,7 +118,12 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
           >
             <IconTrash size={18} />
           </button>
-        </span>
+          <Switch
+            checked={m.active}
+            onCheckedChange={() => toggleMemberActive(m.id)}
+            aria-label={`Toggle active status for ${m.name}`}
+          />
+        </div>
       ),
     },
   ]
@@ -137,7 +131,7 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
   return (
     <>
       <div className="flex items-center gap-[10px]">
-        <div className="flex h-[35px] flex-1 items-center gap-[var(--space-2)] rounded-[10px] border border-[var(--color-neutral-200)] bg-[var(--color-neutral-50)] px-[14px]">
+        <div className="flex h-9 flex-1 items-center gap-2 rounded-[10px] border border-[var(--color-neutral-200)] bg-[var(--color-neutral-50)] px-[14px] py-[10px]">
           <IconSearch size={14} className="shrink-0 text-[var(--color-neutral-400)]" />
           <input
             type="search"
@@ -145,7 +139,7 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, ID, or position…"
             aria-label="Search employees"
-            className="w-full bg-transparent text-[13px] text-[var(--color-neutral-900)] outline-none placeholder:text-[var(--color-neutral-400)]"
+            className="w-full bg-transparent text-[13px] font-normal text-[var(--color-neutral-900)] outline-none placeholder:text-[var(--color-neutral-400)]"
           />
         </div>
         <Select
@@ -154,7 +148,7 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
           options={STATUS_FILTER_OPTIONS}
           value={statusFilter}
           onValueChange={setStatusFilter}
-          className="w-[150px]"
+          className="w-[100px]"
         />
         <Select
           aria-label="Filter by department"
@@ -162,7 +156,7 @@ export function EmployeeManagementStep({ onRemoveRequest }: EmployeeManagementSt
           options={DEPT_FILTER_OPTIONS}
           value={deptFilter}
           onValueChange={setDeptFilter}
-          className="w-[190px]"
+          className="w-[141px]"
         />
       </div>
 

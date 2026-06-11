@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { ChipTabs, ConfirmModal } from '@/components/molecules'
-import { IconPlus, IconUpload } from '@/components/icons'
+import { IconPlus } from '@/components/icons'
 import { useSettingsStore, toast } from '@/lib/stores'
 import type { Member } from '@/types/settings'
 import { EmployeeManagementStep } from '@/components/organisms/settings/employee-management-step/EmployeeManagementStep'
@@ -58,29 +58,28 @@ export function InviteMembersStep() {
         className="flex w-full flex-col gap-[var(--space-4)] rounded-[var(--radius-2xl)] border border-[var(--color-neutral-200)] bg-[var(--color-surface)] p-[var(--space-6)]"
       >
         <div className="flex h-[33px] items-center justify-between gap-[var(--space-4)]">
-          <div className="flex items-center gap-[var(--space-3)]">
-            <h2 className="text-[20px] font-semibold leading-[28px] text-[var(--color-neutral-900)]">
+          <div className="flex items-center gap-3">
+            <h2 className="text-[20px] font-bold leading-7 text-[var(--color-neutral-900)]">
               {tab === 'members' ? 'Employee Management' : 'Pending Invites'}
             </h2>
-            <span className="inline-flex h-[21px] items-center rounded-[10.5px] bg-[var(--color-primary-50)] px-[10px] text-[var(--font-size-xs)] font-medium text-[var(--color-primary-600)]">
+            <span className="inline-flex h-[21px] items-center rounded-[20px] bg-[var(--color-primary-50)] px-[10px] py-[3px] text-[12px] font-semibold leading-[15px] text-[var(--color-primary-600)]">
               {tab === 'members'
                 ? `${memberCount} employee${memberCount === 1 ? '' : 's'}`
                 : `${pendingCount} pending`}
             </span>
           </div>
-          <div className="flex items-center gap-[var(--space-2)]">
+          <div className="flex items-center gap-2">
             <button
               type="button"
               onClick={() => setBulkOpen(true)}
-              className="flex h-[33px] items-center gap-[var(--space-2)] rounded-[var(--radius-lg)] border-[1.5px] border-[var(--color-neutral-200)] bg-[var(--color-surface)] px-[var(--space-4)] py-[8px] text-[var(--font-size-sm)] font-semibold text-[var(--color-neutral-700)] transition-colors hover:bg-[var(--color-neutral-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+              className="flex h-[33px] items-center rounded-lg border-[1.5px] border-[var(--color-neutral-200)] bg-[var(--color-surface)] px-4 py-2 text-[14px] font-semibold leading-[17px] text-[var(--color-neutral-700)] transition-colors hover:bg-[var(--color-neutral-50)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
             >
-              <IconUpload size={14} />
               Bulk Import
             </button>
             <button
               type="button"
               onClick={() => setInviteOpen(true)}
-              className="flex h-[33px] items-center gap-[var(--space-2)] rounded-[var(--radius-lg)] bg-[var(--color-primary-600)] px-[var(--space-4)] py-[8px] text-[var(--font-size-sm)] font-semibold text-[var(--color-text-inverse)] shadow-[var(--shadow-button-primary)] transition-colors hover:bg-[var(--color-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] focus-visible:ring-offset-2"
+              className="flex h-[33px] items-center gap-[6px] rounded-lg bg-[var(--color-primary-600)] px-4 py-2 text-[14px] font-semibold leading-[17px] text-white shadow-[0px_4px_6px_rgba(59,130,246,0.3)] transition-colors hover:bg-[var(--color-primary-700)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)] focus-visible:ring-offset-2"
             >
               <IconPlus size={11} />
               Invite Employee

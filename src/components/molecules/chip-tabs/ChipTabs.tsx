@@ -1,6 +1,5 @@
 'use client'
 
-import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 export interface ChipTabItem {
@@ -23,52 +22,6 @@ export interface ChipTabsProps {
   className?: string
 }
 
-const lgChip = cva(
-  'flex h-[32px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-4)] py-[var(--space-1)] font-jakarta text-[var(--font-size-sm)] font-semibold tracking-[0.035px] transition-all focus-visible:outline-none focus-visible:ring-2',
-  {
-    variants: {
-      active: {
-        true: 'text-[var(--color-text-inverse)] shadow-[var(--shadow-elevation-02)]',
-        false:
-          'shadow-[var(--shadow-elevation-02)] text-[var(--color-text-tertiary)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-text-secondary)]',
-      },
-      colorScheme: {
-        primary: 'focus-visible:ring-[var(--color-primary-500)] data-[active=true]:bg-[var(--color-primary-600)]',
-        accent: 'focus-visible:ring-accent-500 data-[active=true]:bg-accent-600',
-      },
-    },
-    compoundVariants: [
-      { active: true, colorScheme: 'primary', class: 'bg-[var(--color-primary-600)]' },
-      { active: true, colorScheme: 'accent', class: 'bg-accent-600' },
-    ],
-  }
-)
-
-const filterChip = cva(
-  'flex h-[24px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-3)] font-jakarta text-[var(--font-size-xs)] tracking-[0.09px] transition-all focus-visible:outline-none focus-visible:ring-2',
-  {
-    variants: {
-      active: {
-        true: 'bg-[var(--color-surface)] font-bold leading-[18px]',
-        false: 'font-normal leading-[18px] text-[var(--color-text-tertiary)] hover:text-[var(--color-text-secondary)]',
-      },
-      colorScheme: {
-        primary:
-          'focus-visible:ring-[var(--color-primary-500)] data-[active=true]:border-[var(--color-primary-600)] data-[active=true]:text-[var(--color-primary-600)]',
-        accent: 'focus-visible:ring-accent-500 data-[active=true]:border-accent-600 data-[active=true]:text-accent-600',
-      },
-    },
-    compoundVariants: [
-      {
-        active: true,
-        colorScheme: 'primary',
-        class: 'border border-[var(--color-primary-600)] text-[var(--color-primary-600)]',
-      },
-      { active: true, colorScheme: 'accent', class: 'border border-accent-600 text-accent-600' },
-    ],
-  }
-)
-
 /** Pill chip tab group used for page scope switching and table filters. */
 export function ChipTabs({
   items,
@@ -79,8 +32,6 @@ export function ChipTabs({
   className,
   ...props
 }: ChipTabsProps) {
-  const chip = variant === 'lg' ? lgChip : filterChip
-
   function handleKeyDown(e: React.KeyboardEvent) {
     const currentIndex = items.findIndex((item) => item.value === value)
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
@@ -90,6 +41,28 @@ export function ChipTabs({
       e.preventDefault()
       onValueChange(items[(currentIndex - 1 + items.length) % items.length].value)
     }
+  }
+
+  function chipClassName(active: boolean) {
+    if (variant === 'lg') {
+      return cn(
+        'flex h-[32px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-4)] py-[var(--space-1)] font-jakarta text-[var(--font-size-sm)] font-semibold tracking-[0.035px] shadow-[var(--shadow-elevation-02)] transition-all focus-visible:outline-none focus-visible:ring-2',
+        active
+          ? colorScheme === 'accent'
+            ? 'bg-accent-600 text-white focus-visible:ring-accent-500'
+            : 'bg-[var(--color-primary-600)] text-white focus-visible:ring-[var(--color-primary-500)]'
+          : 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-neutral-600)] focus-visible:ring-[var(--color-primary-500)]'
+      )
+    }
+
+    return cn(
+      'flex h-[24px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-3)] font-jakarta text-[var(--font-size-xs)] tracking-[0.09px] transition-all focus-visible:outline-none focus-visible:ring-2',
+      active
+        ? colorScheme === 'accent'
+          ? 'border border-accent-600 bg-[var(--color-surface)] font-bold leading-[18px] text-accent-600 focus-visible:ring-accent-500'
+          : 'border border-[var(--color-primary-600)] bg-[var(--color-surface)] font-bold leading-[18px] text-[var(--color-primary-600)] focus-visible:ring-[var(--color-primary-500)]'
+        : 'font-normal leading-[18px] text-[var(--color-neutral-400)] hover:text-[var(--color-neutral-600)] focus-visible:ring-[var(--color-primary-500)]'
+    )
   }
 
   return (
@@ -115,8 +88,7 @@ export function ChipTabs({
             aria-selected={active}
             tabIndex={active ? 0 : -1}
             onClick={() => onValueChange(item.value)}
-            data-active={active}
-            className={chip({ active, colorScheme })}
+            className={chipClassName(active)}
           >
             {item.label}
           </button>

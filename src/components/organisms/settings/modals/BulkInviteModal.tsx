@@ -86,8 +86,8 @@ function StepBadge({ step, active }: { step: string; active?: boolean }) {
       className={cn(
         'flex h-[24px] w-[24px] shrink-0 items-center justify-center rounded-full text-[12px] font-bold',
         active
-          ? 'bg-[var(--color-primary-600)] text-[var(--color-text-inverse)]'
-          : 'border-[1.5px] border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-tertiary)]'
+          ? 'bg-[var(--color-primary-600)] text-white'
+          : 'border-[1.5px] border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-neutral-400)]'
       )}
     >
       {step}

@@ -45,6 +45,7 @@ export function DataTable<T>({
       className={cn(
         'w-full overflow-hidden',
         framed && 'rounded-[10px] border border-[var(--color-neutral-200)] bg-[var(--color-surface-subtle)]',
+        !framed && 'border border-[var(--color-neutral-200)] bg-[var(--color-surface)]',
         className
       )}
     >
@@ -52,7 +53,7 @@ export function DataTable<T>({
         role="row"
         className={cn(
           'flex items-center border-b border-[var(--color-neutral-200)] px-[var(--space-4)]',
-          framed ? 'h-[43px] bg-[var(--color-neutral-50)]' : 'h-[37px] rounded-t-[8px] bg-[var(--color-neutral-100)]'
+          framed ? 'h-[44px] bg-[var(--color-neutral-50)]' : 'h-[37px] bg-[var(--color-neutral-100)]'
         )}
       >
         {columns.map((col) => (
@@ -65,7 +66,7 @@ export function DataTable<T>({
               col.align === 'right' && 'justify-end',
               framed
                 ? 'text-[var(--font-size-2xs)] font-bold uppercase tracking-[0.55px] text-[var(--color-text-muted)]'
-                : 'text-[var(--font-size-xs)] font-medium tracking-[var(--letter-spacing-label)] text-[var(--color-text-tertiary)]'
+                : 'text-[var(--font-size-xs)] font-medium leading-[18px] tracking-[var(--letter-spacing-label)] text-[var(--color-neutral-400)]'
             )}
           >
             {col.header}
@@ -85,8 +86,8 @@ export function DataTable<T>({
             className={cn(
               'group flex items-center bg-[var(--color-surface)] px-[var(--space-4)] transition-all',
               framed
-                ? 'h-[51px] border-b border-[var(--color-neutral-200)] last:border-b-0 hover:bg-[var(--color-neutral-50)]'
-                : 'min-h-[28px] border-b border-[var(--color-border-subtle)] py-[var(--space-1)] last:border-b-0 hover:min-h-[45px] hover:bg-[var(--color-surface)]'
+                ? 'h-[52px] border-b border-[var(--color-neutral-200)] last:border-b-0 hover:bg-[var(--color-neutral-50)]'
+                : 'h-[28px] border-b border-[var(--color-border-subtle)] transition-all duration-150 last:border-b-0 hover:h-[45px] hover:bg-[var(--color-surface)]'
             )}
           >
             {columns.map((col) => (

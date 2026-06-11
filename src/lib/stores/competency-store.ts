@@ -18,6 +18,8 @@ import {
   mockSections,
   mockTeamMembers,
 } from '@/lib/mock/competency'
+import { mergeCompetencyAssignments, orgNodesToCompetencyDepartments } from '@/lib/org-to-competency'
+import { useCompanySetupStore } from '@/lib/stores/company-setup-store'
 
 export type ReviewRole = 'admin' | 'manager' | 'employee'
 export type ReviewViewLevel = 'org' | 'team' | 'individual'
@@ -107,6 +109,7 @@ interface CompetencyState {
   bulkImportSections: (rows: CsvCompetencyRow[]) => Promise<void>
 
   // Grade mapping
+  syncDepartmentsFromCompanySetup: () => void
   assignCompetency: (gradeId: string, assignment: Assignment) => Promise<void>
   unassignCompetency: (gradeId: string, compId: string) => Promise<void>
 
@@ -120,11 +123,22 @@ interface CompetencyState {
   getAssessment: (employeeId: string) => EmployeeAssessment | undefined
 }
 
+function buildDepartmentsFromOrg(
+  previous: CompetencyDepartment[],
+  orgNodes = useCompanySetupStore.getState().orgNodes
+): CompetencyDepartment[] {
+  const fromOrg = orgNodesToCompetencyDepartments(orgNodes)
+  if (fromOrg.length === 0) return previous
+  return mergeCompetencyAssignments(fromOrg, previous.length > 0 ? previous : mockCompetencyDepartments)
+}
+
+const initialDepartments = buildDepartmentsFromOrg(mockCompetencyDepartments)
+
 export const useCompetencyStore = create<CompetencyState>((set, get) => ({
   sections: mockSections,
-  departments: mockCompetencyDepartments,
+  departments: initialDepartments,
   assessments: mockAssessments,
-  selectedDepartmentId: 'dept-product-tech',
+  selectedDepartmentId: initialDepartments[0]?.id ?? 'dept-product-tech',
   selectedTeamId: DEFAULT_TEAM_ID,
   selectedEmployeeId: null,
   simulatedRole: 'admin',
@@ -157,6 +171,20 @@ export const useCompetencyStore = create<CompetencyState>((set, get) => ({
   },
 
   setSelectedTeam: (id) => set({ selectedTeamId: id }),
+
+  syncDepartmentsFromCompanySetup: () => {
+    const { departments, selectedDepartmentId } = get()
+    const next = buildDepartmentsFromOrg(departments)
+    const hasSelected = next.some((d) => d.id === selectedDepartmentId)
+    const firstDept = next[0]
+    set({
+      departments: next,
+      selectedDepartmentId: hasSelected ? selectedDepartmentId : (firstDept?.id ?? selectedDepartmentId),
+      selectedTeamId: hasSelected
+        ? get().selectedTeamId
+        : (firstDept?.teams[0]?.id ?? get().selectedTeamId),
+    })
+  },
 
   addSection: async (title) => {
     await delay()

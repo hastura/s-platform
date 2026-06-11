@@ -104,7 +104,7 @@ export function Sidebar() {
                   'flex h-[40px] items-center rounded-[var(--radius-lg)] text-[var(--font-size-xs)] tracking-[var(--letter-spacing-label)] transition-all duration-[var(--duration-normal)]',
                   isCollapsed ? 'justify-center px-0' : 'gap-3 px-[var(--space-3)]',
                   isParentActive
-                    ? 'bg-[var(--color-primary-600)] font-bold text-[var(--color-text-inverse)] shadow-[var(--shadow-glow-primary-sm)]'
+                    ? 'bg-[var(--color-primary-600)] font-bold text-white shadow-[var(--shadow-glow-primary-sm)]'
                     : 'font-medium text-[var(--color-text-tertiary)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-text-primary)]'
                 )}
               >

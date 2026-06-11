@@ -13,13 +13,9 @@ import {
 } from '@/components/organisms/bulk-org-upload-modal/BulkOrgUploadModal'
 import { CompanySetupPageTemplate } from '@/components/templates/CompanySetupPageTemplate'
 import { type ViewMode } from '@/components/organisms/view-toggle/ViewToggle'
-import {
-  DEFAULT_COMPANY_NAME,
-  mockOrgTree,
-  addChildNode,
-  deleteNodeById,
-} from '@/lib/mock/departments'
+import { addChildNode, deleteNodeById } from '@/lib/mock/departments'
 import { mockCompanySetupEmployees } from '@/lib/mock/members'
+import { useCompanySetupStore, useCompetencyStore } from '@/lib/stores'
 import type { CompanySetupEmployee, OrgLevel, OrgNode } from '@/types/company-setup'
 
 const STEPS: Step[] = [
@@ -48,11 +44,20 @@ const STEPS: Step[] = [
 ]
 
 export default function CompanySetupPage() {
+  const companyName = useCompanySetupStore((s) => s.companyName)
+  const setCompanyName = useCompanySetupStore((s) => s.setCompanyName)
+  const orgNodes = useCompanySetupStore((s) => s.orgNodes)
+  const setOrgNodes = useCompanySetupStore((s) => s.setOrgNodes)
+  const syncCompetencyDepartments = useCompetencyStore((s) => s.syncDepartmentsFromCompanySetup)
+
   const [currentStep, setCurrentStep] = useState(0)
-  const [companyName, setCompanyName] = useState(DEFAULT_COMPANY_NAME)
   const [employees, setEmployees] = useState<CompanySetupEmployee[]>(mockCompanySetupEmployees)
-  const [orgNodes, setOrgNodes] = useState<OrgNode[]>(mockOrgTree)
   const [viewMode, setViewMode] = useState<ViewMode>('list')
+
+  function publishOrgNodes(next: OrgNode[]) {
+    setOrgNodes(next)
+    syncCompetencyDepartments()
+  }
 
   const [isAddEmployeeOpen, setIsAddEmployeeOpen] = useState(false)
   const [isAddTopManagementOpen, setIsAddTopManagementOpen] = useState(false)
@@ -95,16 +100,20 @@ export default function CompanySetupPage() {
       level: 'top_management',
       children: [],
     }
-    setOrgNodes((prev) => [...prev, newNode])
+    publishOrgNodes([...orgNodes, newNode])
   }
 
   const handleDeleteNode = (id: string) => {
-    setOrgNodes((prev) => deleteNodeById(prev, id))
+    publishOrgNodes(deleteNodeById(orgNodes, id))
   }
 
   const handleAddChild = (parentId: string, name: string, level: OrgLevel) => {
     const newNode: OrgNode = { id: `node-${Date.now()}`, name, level, children: [] }
-    setOrgNodes((prev) => addChildNode(prev, parentId, newNode))
+    if (parentId === 'ceo') {
+      publishOrgNodes([...orgNodes, newNode])
+      return
+    }
+    publishOrgNodes(addChildNode(orgNodes, parentId, newNode))
   }
 
   return (
@@ -171,7 +180,7 @@ export default function CompanySetupPage() {
             level: 'department',
             children: [],
           }
-          setOrgNodes((prev) => [...prev, newNode])
+          publishOrgNodes([...orgNodes, newNode])
         }}
       />
 

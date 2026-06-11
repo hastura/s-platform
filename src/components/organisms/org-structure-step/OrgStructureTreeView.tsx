@@ -13,47 +13,58 @@ export interface OrgStructureTreeViewProps {
   onAddChild: (parentId: string, name: string, level: OrgLevel) => void
 }
 
-const TREE_ADD_LABEL: Partial<Record<OrgLevel, string>> = {
-  top_management: '+ Top Mgmt',
-  department: '+ Department',
-  division: '+ Division',
-  team: '+ Squad',
-  role: '+ Staff',
+const TREE_SIBLING_LABEL: Partial<Record<OrgLevel, string>> = {
+  top_management: 'Top Mgmt',
+  department: 'Department',
+  division: 'Division',
+  team: 'Squad',
+}
+
+const TREE_CHILD_LABEL: Partial<Record<OrgLevel, string>> = {
+  department: 'Department',
+  division: 'Division',
+  team: 'Squad',
+  role: 'Staff',
 }
 
 const TREE_NODE_STYLES: Record<
   OrgLevel,
-  { wClass: string; bg: string; nameClass: string; pad: string }
+  { wClass: string; bg: string; nameClass: string; pad: string; plusClass: string }
 > = {
   top_management: {
     wClass: 'w-[160px]',
     bg: 'rounded-[var(--radius-lg)] border-[1.5px] border-white bg-[#122c47]',
     nameClass: 'text-center text-[13px] font-semibold leading-tight text-white',
     pad: 'px-[var(--space-2)] py-[var(--space-3)]',
+    plusClass: 'text-white/90 hover:bg-white/20',
   },
   department: {
     wClass: 'w-[110px]',
     bg: 'rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-surface)] shadow-[var(--shadow-xs)]',
     nameClass: 'text-center text-[12px] font-semibold leading-tight text-[var(--color-text-primary)]',
     pad: 'px-[var(--space-2)] py-[var(--space-2)]',
+    plusClass: 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)]',
   },
   division: {
     wClass: 'w-[100px]',
     bg: 'rounded-[var(--radius-lg)] border border-[var(--color-border)] bg-[var(--color-bg-page)]',
     nameClass: 'whitespace-nowrap text-center text-[12px] text-[var(--color-text-secondary)]',
     pad: 'px-[var(--space-3)] py-[var(--space-2)]',
+    plusClass: 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)]',
   },
   team: {
     wClass: 'w-[90px]',
     bg: 'rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-neutral-50)]',
     nameClass: 'whitespace-nowrap text-center text-[11px] text-[var(--color-text-secondary)]',
     pad: 'px-[var(--space-2)] py-[var(--space-2)]',
+    plusClass: 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)]',
   },
   role: {
     wClass: 'w-[88px]',
     bg: 'rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-neutral-50)]',
     nameClass: 'whitespace-nowrap text-center text-[10px] text-[var(--color-text-muted)]',
     pad: 'px-[var(--space-2)] py-[var(--space-2)]',
+    plusClass: 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)]',
   },
 }
 
@@ -75,61 +86,58 @@ export function OrgStructureTreeView({
 
         <div className="h-[14px] w-[1.5px] bg-[var(--color-neutral-300)]" />
 
-        <OrgTreeChildRow
-          nodes={nodes}
-          onDeleteNode={onDeleteNode}
-          onAddChild={onAddChild}
-          onAddTopManagement={onAddTopManagement}
-          showRootAdd
-        />
+        <div className="flex items-start gap-[var(--space-4)]">
+          {nodes.length === 0 ? (
+            <TreeDashedAddButton label="Top Mgmt" onClick={onAddTopManagement} />
+          ) : (
+            nodes.map((node) => (
+              <OrgTreeNodeBranch
+                key={node.id}
+                node={node}
+                parentId="ceo"
+                onDeleteNode={onDeleteNode}
+                onAddChild={onAddChild}
+              />
+            ))
+          )}
+        </div>
       </div>
     </div>
   )
 }
 
-function OrgTreeChildRow({
-  nodes,
+/** Node column + optional sibling add slot to the right (Figma tree row). */
+function OrgTreeNodeBranch({
+  node,
+  parentId,
   onDeleteNode,
   onAddChild,
-  onAddTopManagement,
-  showRootAdd = false,
 }: {
-  nodes: OrgNode[]
+  node: OrgNode
+  parentId: string
   onDeleteNode: (id: string) => void
   onAddChild: (parentId: string, name: string, level: OrgLevel) => void
-  onAddTopManagement?: () => void
-  showRootAdd?: boolean
 }) {
+  const siblingLabel = TREE_SIBLING_LABEL[node.level]
+
   return (
-    <div className="relative flex items-start gap-[var(--space-4)]">
-      {/* Horizontal connector line */}
-      {nodes.length > 1 && (
-        <div
-          className="absolute top-0 h-[1.5px] bg-[var(--color-neutral-300)]"
-          style={{
-            left: `${100 / ((nodes.length + (showRootAdd ? 1 : 0)) * 2)}%`,
-            right: `${100 / ((nodes.length + (showRootAdd ? 1 : 0)) * 2)}%`,
-          }}
+    <div className="flex items-start gap-[var(--space-4)]">
+      <OrgTreeNodeColumn node={node} onDeleteNode={onDeleteNode} onAddChild={onAddChild} />
+
+      {siblingLabel && (
+        <TreeSiblingAddSlot
+          label={siblingLabel}
+          level={node.level}
+          parentId={parentId}
+          onAddChild={onAddChild}
         />
-      )}
-      {nodes.map((node) => (
-        <OrgTreeNodeBox key={node.id} node={node} onDeleteNode={onDeleteNode} onAddChild={onAddChild} />
-      ))}
-      {showRootAdd && onAddTopManagement && (
-        <button
-          type="button"
-          onClick={onAddTopManagement}
-          className="flex h-[44px] w-[110px] flex-col items-center justify-center rounded-[var(--radius-lg)] border-[1.5px] border-dashed border-[var(--color-neutral-400)] text-[10px] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary-300)] hover:text-[var(--color-primary-600)]"
-        >
-          <span className="flex h-[12px] w-[12px] items-center justify-center rounded-full border border-current text-[8px]">+</span>
-          <span>Top Mgmt</span>
-        </button>
       )}
     </div>
   )
 }
 
-function OrgTreeNodeBox({
+/** Vertical spine: node card → connector → child branches. */
+function OrgTreeNodeColumn({
   node,
   onDeleteNode,
   onAddChild,
@@ -138,94 +146,210 @@ function OrgTreeNodeBox({
   onDeleteNode: (id: string) => void
   onAddChild: (parentId: string, name: string, level: OrgLevel) => void
 }) {
-  const [isAdding, setIsAdding] = useState(false)
-  const [newName, setNewName] = useState('')
-  const s = TREE_NODE_STYLES[node.level]
+  const [isAddingChild, setIsAddingChild] = useState(false)
   const childLevel = nextOrgLevel(node.level)
-  const addLabel = childLevel ? TREE_ADD_LABEL[childLevel] : undefined
+  const childLabel = childLevel ? TREE_CHILD_LABEL[childLevel] : undefined
+  const s = TREE_NODE_STYLES[node.level]
 
-  const handleAdd = () => {
-    if (newName.trim() && childLevel) {
-      onAddChild(node.id, newName.trim(), childLevel)
-      setNewName('')
-      setIsAdding(false)
-    }
+  const showChildrenSection = node.children.length > 0 || isAddingChild
+
+  function handleAddChild(name: string) {
+    if (!childLevel) return
+    onAddChild(node.id, name, childLevel)
+    setIsAddingChild(false)
   }
 
   return (
     <div className="flex flex-col items-center">
-      {/* Vertical connector from parent */}
-      <div className="h-[14px] w-[1.5px] bg-[var(--color-neutral-300)]" />
+      <TreeNodeCard
+        node={node}
+        styles={s}
+        canAddChild={Boolean(childLevel)}
+        onDelete={() => onDeleteNode(node.id)}
+        onAddChildClick={() => setIsAddingChild(true)}
+      />
 
-      <div className={cn('relative', s.bg, s.wClass)}>
-        <div className={cn('flex flex-col items-center', s.pad)}>
-          <span className={s.nameClass}>{node.name}</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => onDeleteNode(node.id)}
-          aria-label={`Delete ${node.name}`}
-          className="absolute -right-2 -top-2 z-10 flex h-4 w-4 items-center justify-center rounded-[var(--radius-md)] border-[1.5px] border-white bg-[var(--color-neutral-800)] text-[10px] font-bold leading-none text-white opacity-100 transition-opacity"
-        >
-          ×
-        </button>
-      </div>
-
-      {node.children.length > 0 && childLevel && (
+      {showChildrenSection && childLevel && (
         <>
-          {/* Vertical connector to children */}
           <div className="h-[14px] w-[1.5px] bg-[var(--color-neutral-300)]" />
-          <OrgTreeChildRow nodes={node.children} onDeleteNode={onDeleteNode} onAddChild={onAddChild} />
+
+          {isAddingChild && (
+            <div className="mb-[var(--space-2)]">
+              <TreeInlineAddForm
+                placeholder={childLabel ? `New ${childLabel}…` : 'Name…'}
+                onSubmit={handleAddChild}
+                onCancel={() => setIsAddingChild(false)}
+              />
+            </div>
+          )}
+
+          {node.children.length > 0 && (
+            <div className="relative flex items-start gap-[var(--space-4)]">
+              {node.children.length > 1 && (
+                <div
+                  className="absolute top-0 h-[1.5px] bg-[var(--color-neutral-300)]"
+                  style={{
+                    left: `${100 / (node.children.length * 2)}%`,
+                    right: `${100 / (node.children.length * 2)}%`,
+                  }}
+                />
+              )}
+              {node.children.map((child) => (
+                <div key={child.id} className="flex flex-col items-center">
+                  <div className="h-[14px] w-[1.5px] bg-[var(--color-neutral-300)]" />
+                  <OrgTreeNodeBranch
+                    node={child}
+                    parentId={node.id}
+                    onDeleteNode={onDeleteNode}
+                    onAddChild={onAddChild}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </>
       )}
+    </div>
+  )
+}
 
-      {childLevel && addLabel && (
-        <div className="mt-[var(--space-2)] w-full">
-          {isAdding ? (
-            <div className="flex items-center gap-[var(--space-1)]">
-              <input
-                autoFocus
-                value={newName}
-                onChange={(e) => setNewName(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleAdd()
-                  else if (e.key === 'Escape') {
-                    setIsAdding(false)
-                    setNewName('')
-                  }
-                }}
-                className="h-[26px] min-w-0 flex-1 rounded-[var(--radius-sm)] border border-[var(--color-primary-300)] bg-[var(--color-surface)] px-[var(--space-2)] text-[10px] outline-none"
-                placeholder="Name…"
-              />
-              <button
-                type="button"
-                onClick={handleAdd}
-                className="h-[26px] whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--color-primary-600)] px-[var(--space-2)] text-[10px] font-medium text-white"
-              >
-                Add
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setIsAdding(false)
-                  setNewName('')
-                }}
-                className="text-[10px] text-[var(--color-text-tertiary)]"
-              >
-                ✕
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setIsAdding(true)}
-              className="w-full rounded-[var(--radius-lg)] border-[1.5px] border-dashed border-[var(--color-neutral-400)] px-[var(--space-2)] py-[var(--space-1)] text-[10px] font-medium text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary-300)] hover:text-[var(--color-primary-600)]"
-            >
-              {addLabel}
-            </button>
+function TreeNodeCard({
+  node,
+  styles,
+  canAddChild,
+  onDelete,
+  onAddChildClick,
+}: {
+  node: OrgNode
+  styles: (typeof TREE_NODE_STYLES)[OrgLevel]
+  canAddChild: boolean
+  onDelete: () => void
+  onAddChildClick: () => void
+}) {
+  return (
+    <div className={cn('relative', styles.bg, styles.wClass)}>
+      <div className={cn('flex flex-col items-center', styles.pad)}>
+        <span className={styles.nameClass}>{node.name}</span>
+      </div>
+
+      <button
+        type="button"
+        onClick={onDelete}
+        aria-label={`Delete ${node.name}`}
+        className="absolute -right-2 -top-2 z-10 flex h-4 w-4 items-center justify-center rounded-[var(--radius-md)] border-[1.5px] border-white bg-[var(--color-neutral-800)] text-[10px] font-bold leading-none text-white"
+      >
+        ×
+      </button>
+
+      {canAddChild && (
+        <button
+          type="button"
+          onClick={onAddChildClick}
+          aria-label={`Add child under ${node.name}`}
+          className={cn(
+            'absolute -bottom-2 -right-2 z-10 flex h-5 w-5 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] text-[12px] font-bold leading-none shadow-[var(--shadow-xs)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]',
+            styles.plusClass
           )}
-        </div>
+        >
+          +
+        </button>
       )}
+    </div>
+  )
+}
+
+function TreeSiblingAddSlot({
+  label,
+  level,
+  parentId,
+  onAddChild,
+}: {
+  label: string
+  level: OrgLevel
+  parentId: string
+  onAddChild: (parentId: string, name: string, level: OrgLevel) => void
+}) {
+  const [isAdding, setIsAdding] = useState(false)
+
+  if (isAdding) {
+    return (
+      <TreeInlineAddForm
+        placeholder={`New ${label}…`}
+        onSubmit={(name) => {
+          onAddChild(parentId, name, level)
+          setIsAdding(false)
+        }}
+        onCancel={() => setIsAdding(false)}
+      />
+    )
+  }
+
+  return <TreeDashedAddButton label={label} onClick={() => setIsAdding(true)} />
+}
+
+function TreeDashedAddButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="flex h-[44px] min-w-[100px] flex-col items-center justify-center rounded-[var(--radius-lg)] border-[1.5px] border-dashed border-[var(--color-neutral-400)] px-[var(--space-2)] text-[10px] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary-300)] hover:text-[var(--color-primary-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]"
+    >
+      <span className="mb-[2px] flex h-[12px] w-[12px] items-center justify-center rounded-full border border-current text-[8px]">
+        +
+      </span>
+      <span>{label}</span>
+    </button>
+  )
+}
+
+function TreeInlineAddForm({
+  placeholder,
+  onSubmit,
+  onCancel,
+}: {
+  placeholder: string
+  onSubmit: (name: string) => void
+  onCancel: () => void
+}) {
+  const [name, setName] = useState('')
+
+  function handleSubmit() {
+    const trimmed = name.trim()
+    if (!trimmed) return
+    onSubmit(trimmed)
+    setName('')
+  }
+
+  return (
+    <div className="flex min-w-[120px] flex-col gap-[var(--space-1)] rounded-[var(--radius-lg)] border border-[var(--color-primary-200)] bg-[var(--color-surface)] p-[var(--space-2)] shadow-[var(--shadow-sm)]">
+      <input
+        autoFocus
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') handleSubmit()
+          else if (e.key === 'Escape') onCancel()
+        }}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        className="h-[28px] w-full rounded-[var(--radius-sm)] border border-[var(--color-border)] bg-[var(--color-bg-page)] px-[var(--space-2)] text-[11px] outline-none focus:border-[var(--color-primary-400)]"
+      />
+      <div className="flex gap-[var(--space-1)]">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="flex-1 rounded-[var(--radius-sm)] bg-[var(--color-primary-600)] px-[var(--space-2)] py-[3px] text-[10px] font-medium text-white"
+        >
+          Add
+        </button>
+        <button
+          type="button"
+          onClick={onCancel}
+          className="rounded-[var(--radius-sm)] px-[var(--space-2)] py-[3px] text-[10px] text-[var(--color-text-tertiary)]"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   )
 }

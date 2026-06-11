@@ -26,8 +26,8 @@ export function SettingsSubNav() {
             className={cn(
               'flex h-[32px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-4)] py-[var(--space-1)] font-jakarta text-[var(--font-size-sm)] font-semibold tracking-[0.035px] shadow-[var(--shadow-elevation-02)] transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-500)]',
               active
-                ? 'bg-[var(--color-primary-600)] text-[var(--color-text-inverse)]'
-                : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-text-secondary)]'
+                ? 'bg-[var(--color-primary-600)] text-white'
+                : 'text-[var(--color-neutral-400)] hover:bg-[var(--color-neutral-100)] hover:text-[var(--color-neutral-600)]'
             )}
           >
             {item.label}

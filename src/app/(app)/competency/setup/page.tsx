@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AddCompetencyModal } from '@/components/organisms/competency/add-competency-modal/AddCompetencyModal'
 import { CompetencyBulkImportModal } from '@/components/organisms/competency/competency-bulk-import-modal/CompetencyBulkImportModal'
 import { MapCompetenciesModal } from '@/components/organisms/competency/map-competencies-modal/MapCompetenciesModal'
@@ -20,7 +20,12 @@ export default function CompetencySetupPage() {
   const bulkImportSections = useCompetencyStore((s) => s.bulkImportSections)
   const assignCompetency = useCompetencyStore((s) => s.assignCompetency)
   const getGradeById = useCompetencyStore((s) => s.getGradeById)
+  const syncDepartmentsFromCompanySetup = useCompetencyStore((s) => s.syncDepartmentsFromCompanySetup)
   const addToast = useToastStore((s) => s.addToast)
+
+  useEffect(() => {
+    syncDepartmentsFromCompanySetup()
+  }, [syncDepartmentsFromCompanySetup])
 
   const [addCompOpen, setAddCompOpen] = useState(false)
   const [addCompSectionId, setAddCompSectionId] = useState<string | null>(null)

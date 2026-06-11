@@ -59,8 +59,8 @@ export function CompetencyReviewHeader({
                   'flex h-[28px] items-center justify-center rounded-[var(--radius-full)] px-[var(--space-3)] text-[var(--font-size-xs)] font-semibold tracking-[var(--letter-spacing-label)] transition-all',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500',
                   active
-                    ? 'bg-accent-600 text-[var(--color-text-inverse)] shadow-[var(--shadow-elevation-02)]'
-                    : 'text-[var(--color-text-tertiary)] hover:bg-[var(--color-surface)] hover:text-[var(--color-text-secondary)]'
+                    ? 'bg-accent-600 text-white shadow-[var(--shadow-elevation-02)]'
+                    : 'text-[var(--color-neutral-400)] hover:bg-[var(--color-surface)] hover:text-[var(--color-neutral-600)]'
                 )}
               >
                 {option.label}
