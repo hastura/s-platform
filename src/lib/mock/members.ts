@@ -1,0 +1,201 @@
+import type { CompanySetupEmployee } from '@/types/company-setup'
+import type { Member, PendingInvite } from '@/types/settings'
+
+export const mockMembers: Member[] = [
+  {
+    id: 'mem-001',
+    employeeId: '00021090084',
+    name: 'Budi Santoso',
+    email: 'budi.santoso@strativy.com',
+    department: 'Engineering',
+    team: 'Platform',
+    position: 'Senior Backend Engineer',
+    role: 'manager',
+    status: 'permanent',
+    active: true,
+  },
+  {
+    id: 'mem-002',
+    employeeId: '00021090085',
+    name: 'Sari Wijaya',
+    email: 'sari.wijaya@strativy.com',
+    department: 'Marketing',
+    team: 'Growth',
+    position: 'Growth Marketing Lead',
+    role: 'manager',
+    status: 'permanent',
+    active: true,
+  },
+  {
+    id: 'mem-003',
+    employeeId: '00021090086',
+    name: 'Ahmad Fauzi',
+    email: 'ahmad.fauzi@strativy.com',
+    department: 'Engineering',
+    team: 'Mobile',
+    position: 'Mobile Engineer',
+    role: 'employee',
+    status: 'contract',
+    active: true,
+  },
+  {
+    id: 'mem-004',
+    employeeId: '00021090087',
+    name: 'Dewi Kartika',
+    email: 'dewi.kartika@strativy.com',
+    department: 'Human Resources',
+    team: 'People Operations',
+    position: 'HR Generalist',
+    role: 'employee',
+    status: 'probation',
+    active: true,
+  },
+  {
+    id: 'mem-005',
+    employeeId: '00021090088',
+    name: 'Rizky Pratama',
+    email: 'rizky.pratama@strativy.com',
+    department: 'Product & Tech',
+    team: 'Product Management',
+    position: 'Product Manager',
+    role: 'manager',
+    status: 'permanent',
+    active: true,
+  },
+  {
+    id: 'mem-006',
+    employeeId: '00021090089',
+    name: 'Putri Maharani',
+    email: 'putri.maharani@strativy.com',
+    department: 'Product & Tech',
+    team: 'Product Design',
+    position: 'Senior Product Designer',
+    role: 'employee',
+    status: 'permanent',
+    active: true,
+  },
+  {
+    id: 'mem-007',
+    employeeId: '00021090090',
+    name: 'Andi Saputra',
+    email: 'andi.saputra@strativy.com',
+    department: 'Sales',
+    team: 'Enterprise',
+    position: 'Account Executive',
+    role: 'employee',
+    status: 'permanent',
+    active: false,
+  },
+  {
+    id: 'mem-008',
+    employeeId: '00021090091',
+    name: 'Maya Anggraini',
+    email: 'maya.anggraini@strativy.com',
+    department: 'Finance',
+    team: 'FP&A',
+    position: 'Financial Analyst',
+    role: 'employee',
+    status: 'contract',
+    active: true,
+  },
+  {
+    id: 'mem-009',
+    employeeId: '00021090092',
+    name: 'Hendra Gunawan',
+    email: 'hendra.gunawan@strativy.com',
+    department: 'Engineering',
+    team: 'QA & Release',
+    position: 'QA Engineer',
+    role: 'employee',
+    status: 'probation',
+    active: true,
+  },
+  {
+    id: 'mem-010',
+    employeeId: '00021090093',
+    name: 'Lestari Handayani',
+    email: 'lestari.handayani@strativy.com',
+    department: 'Human Resources',
+    team: 'Talent Acquisition',
+    position: 'Talent Acquisition Lead',
+    role: 'company_admin',
+    status: 'permanent',
+    active: true,
+  },
+]
+
+/** Grade + manager linkage for Competency grade-mapping consumers. */
+export const mockMemberOrgMeta: Record<
+  string,
+  { grade?: number; managerId?: string; orgUnitId?: string }
+> = {
+  'mem-001': { grade: 7, managerId: 'mem-010', orgUnitId: 'team-backend' },
+  'mem-002': { grade: 8, managerId: 'mem-010', orgUnitId: 'div-growth' },
+  'mem-003': { grade: 5, managerId: 'mem-001', orgUnitId: 'team-mobile' },
+  'mem-004': { grade: 5, managerId: 'mem-010', orgUnitId: 'dept-hr' },
+  'mem-005': { grade: 7, managerId: 'mem-010', orgUnitId: 'team-pm' },
+  'mem-006': { grade: 7, managerId: 'mem-005', orgUnitId: 'team-design' },
+  'mem-007': { grade: 5, managerId: 'mem-002', orgUnitId: 'dept-sales' },
+  'mem-008': { grade: 5, managerId: 'mem-010', orgUnitId: 'dept-finance' },
+  'mem-009': { grade: 5, managerId: 'mem-001', orgUnitId: 'team-frontend' },
+  'mem-010': { grade: 9, orgUnitId: 'tm-cio' },
+}
+
+const STATUS_MAP: Record<Member['status'], CompanySetupEmployee['status']> = {
+  permanent: 'Permanent',
+  contract: 'Contract',
+  probation: 'Probation',
+}
+
+export function memberToSetupEmployee(member: Member): CompanySetupEmployee {
+  const meta = mockMemberOrgMeta[member.id] ?? {}
+  return {
+    id: member.employeeId,
+    name: member.name,
+    email: member.email,
+    position: member.position,
+    department: member.department,
+    team: member.team,
+    status: STATUS_MAP[member.status],
+    active: member.active,
+    grade: meta.grade,
+    managerId: meta.managerId,
+    orgUnitId: meta.orgUnitId,
+  }
+}
+
+/** Initial employee roster for Company Setup — shared with OKR owner resolution. */
+export const mockCompanySetupEmployees: CompanySetupEmployee[] = mockMembers.map(memberToSetupEmployee)
+
+export const mockPendingInvites: PendingInvite[] = [
+  {
+    id: 'inv-001',
+    email: 'agus.salim@strativy.com',
+    name: 'Agus Salim',
+    role: 'employee',
+    department: 'Engineering',
+    invitedAt: '2026-06-08',
+    expiresAt: '2026-06-15',
+    status: 'pending',
+  },
+  {
+    id: 'inv-002',
+    email: 'rina.melati@strativy.com',
+    name: 'Rina Melati',
+    role: 'manager',
+    department: 'Sales',
+    invitedAt: '2026-06-05',
+    expiresAt: '2026-06-12',
+    status: 'pending',
+  },
+  {
+    id: 'inv-003',
+    email: 'tono.wibowo@strativy.com',
+    name: 'Tono Wibowo',
+    role: 'employee',
+    department: 'Marketing',
+    invitedAt: '2026-05-20',
+    expiresAt: '2026-05-27',
+    status: 'expired',
+  },
+]

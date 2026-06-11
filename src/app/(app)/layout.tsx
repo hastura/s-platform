@@ -4,21 +4,27 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Topbar } from '@/components/layout/Topbar'
+import { Toaster } from '@/components/organisms/toaster/Toaster'
 import { SidebarProvider, useSidebar } from '@/lib/sidebar-context'
 
 function AppContent({ children }: { children: React.ReactNode }) {
   const { isCollapsed } = useSidebar()
 
   return (
-    <div className="min-h-screen bg-[#f1f5f9]">
+    <div className="min-h-screen bg-[var(--color-bg-page)]">
       <Sidebar />
       <Topbar />
       <main
-        className="pt-[96px] pr-6 pb-8 min-h-screen transition-all duration-300"
-        style={{ paddingLeft: isCollapsed ? '104px' : '284px' }}
+        className="min-h-screen pb-8 pr-[var(--layout-gutter)] pt-[103px] transition-all duration-300"
+        style={{
+          paddingLeft: isCollapsed
+            ? 'calc(var(--layout-sidebar-collapsed) + var(--layout-gutter) + var(--layout-content-gap))'
+            : 'calc(var(--layout-sidebar-width) + var(--layout-gutter) + var(--layout-content-gap))',
+        }}
       >
         {children}
       </main>
+      <Toaster />
     </div>
   )
 }

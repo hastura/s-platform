@@ -87,10 +87,28 @@ const config: Config = {
           'off-track': '#ef4444',  // < 40%
         },
 
+        // ── Accent (Competency indigo) ─────────────────────────
+        accent: {
+          50:  '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+          DEFAULT: '#4f46e5',
+        },
+
         // ── Semantic UI Aliases ────────────────────────────────
-        border: '#e2e8f0',
+        // Figma Colors/Semantic/border/default
+        border: '#f1f5f9',
+        'border-subtle': '#f1f5f9',
         background: '#f8fafc',
         surface: '#ffffff',
+        'surface-subtle': '#f1f5f9',
       },
 
       // --------------------------------------------------------
@@ -99,6 +117,8 @@ const config: Config = {
       fontFamily: {
         sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'ui-monospace', 'Fira Code', 'monospace'],
+        // Figma chip text style "Plus Jakarta Sans/XS/B2"
+        jakarta: ['var(--font-jakarta)', 'Plus Jakarta Sans', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         xs:   ['0.75rem',  { lineHeight: '1rem' }],
@@ -136,6 +156,11 @@ const config: Config = {
         lg:  '0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10)',
         xl:  '0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10)',
         none:'none',
+        'elevation-01': '0px 1px 2px rgba(0, 0, 0, 0.06)',
+        'elevation-02': '1px 6px 24px 2px rgba(3, 6, 18, 0.12)',
+        'elevation-03': '1.5px 9px 36px 3px rgba(3, 6, 18, 0.12)',
+        'glow-primary': '0px 4px 6px 0px rgba(59, 130, 246, 0.3), 0px 10px 15px 0px rgba(59, 130, 246, 0.3)',
+        'glow-primary-sm': '0px 4px 3px rgba(59, 130, 246, 0.2), 0px 10px 7.5px rgba(59, 130, 246, 0.2)',
       },
 
       // --------------------------------------------------------

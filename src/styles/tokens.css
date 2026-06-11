@@ -1,243 +1,289 @@
-/* ============================================================
-   Strativy Design System — CSS Custom Properties
-   Primary: #2563EB (Blue 600)
-   ============================================================ */
+/* ============================================
+   STRATIVY PLATFORM - DESIGN TOKENS
+   Atomic Design System
+   ============================================ */
 
 :root {
-  /* ----------------------------------------------------------
-     COLOR PALETTE — Primary (Blue)
-     ---------------------------------------------------------- */
-  --color-primary-50:  #EFF6FF;
-  --color-primary-100: #DBEAFE;
-  --color-primary-200: #BFDBFE;
-  --color-primary-300: #93C5FD;
-  --color-primary-400: #60A5FA;
-  --color-primary-500: #3B82F6;
-  --color-primary-600: #2563EB; /* ← Brand primary */
-  --color-primary-700: #1D4ED8;
-  --color-primary-800: #1E40AF;
-  --color-primary-900: #1E3A8E;
+  /* ── COLORS: Primary ──────────────────────────────────── */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8e;
   --color-primary-950: #172554;
 
-  /* ----------------------------------------------------------
-     COLOR PALETTE — Neutral (Gray)
-     ---------------------------------------------------------- */
-  --color-neutral-50:  #F8FAFC;
-  --color-neutral-100: #F1F5F9;
-  --color-neutral-200: #E2E8F0;
-  --color-neutral-300: #CBD5E1;
-  --color-neutral-400: #94A3B8;
-  --color-neutral-500: #64748B;
+  /* ── COLORS: Neutral ──────────────────────────────────── */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
   --color-neutral-600: #475569;
   --color-neutral-700: #334155;
-  --color-neutral-800: #1E293B;
-  --color-neutral-900: #0F172A;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
   --color-neutral-950: #020617;
 
-  /* Base */
-  --color-white: #FFFFFF;
-  --color-black: #020617;
-
-  /* ----------------------------------------------------------
-     COLOR PALETTE — Semantic
-     ---------------------------------------------------------- */
-
-  /* Success (Green) */
-  --color-success-50:  #F0FDF4;
-  --color-success-100: #DCFCE7;
-  --color-success-200: #BBF7D0;
-  --color-success-300: #86EFAC;
-  --color-success-400: #4ADE80;
-  --color-success-500: #22C55E;
-  --color-success-600: #16A34A;
-  --color-success-700: #15803D;
+  /* ── COLORS: Success ──────────────────────────────────── */
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-200: #bbf7d0;
+  --color-success-300: #86efac;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
   --color-success-800: #166534;
-  --color-success-900: #14532D;
+  --color-success-900: #14532d;
 
-  /* Warning (Amber) */
-  --color-warning-50:  #FFFBEB;
-  --color-warning-100: #FEF3C7;
-  --color-warning-200: #FDE68A;
-  --color-warning-300: #FCD34D;
-  --color-warning-400: #FBBF24;
-  --color-warning-500: #F59E0B;
-  --color-warning-600: #D97706;
-  --color-warning-700: #B45309;
-  --color-warning-800: #92400E;
-  --color-warning-900: #78350F;
+  /* ── COLORS: Warning ──────────────────────────────────── */
+  --color-warning-50: #fffbeb;
+  --color-warning-100: #fef3c7;
+  --color-warning-200: #fde68a;
+  --color-warning-300: #fcd34d;
+  --color-warning-400: #fbbf24;
+  --color-warning-500: #f59e0b;
+  --color-warning-600: #d97706;
+  --color-warning-700: #b45309;
+  --color-warning-800: #92400e;
+  --color-warning-900: #78350f;
 
-  /* Danger (Red) */
-  --color-danger-50:  #FEF2F2;
-  --color-danger-100: #FEE2E2;
-  --color-danger-200: #FECACA;
-  --color-danger-300: #FCA5A5;
-  --color-danger-400: #F87171;
-  --color-danger-500: #EF4444;
-  --color-danger-600: #DC2626;
-  --color-danger-700: #B91C1C;
-  --color-danger-800: #991B1B;
-  --color-danger-900: #7F1D1D;
+  /* ── COLORS: Danger ───────────────────────────────────── */
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-200: #fecaca;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-500: #ef4444;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+  --color-danger-900: #7f1d1d;
 
-  /* ----------------------------------------------------------
-     SEMANTIC ALIASES — OKR Goal Health
-     ---------------------------------------------------------- */
-  --color-goal-on-track:    var(--color-success-500); /* ≥ 70% */
-  --color-goal-at-risk:     var(--color-warning-500); /* 40–69% */
-  --color-goal-off-track:   var(--color-danger-500);  /* < 40% */
+  /* ── COLORS: Accent (Competency indigo) ───────────────── */
+  --color-accent-50: #eef2ff;
+  --color-accent-100: #e0e7ff;
+  --color-accent-200: #c7d2fe;
+  --color-accent-300: #a5b4fc;
+  --color-accent-400: #818cf8;
+  --color-accent-500: #6366f1;
+  --color-accent-600: #4f46e5;
+  --color-accent-700: #4338ca;
+  --color-accent-800: #3730a3;
+  --color-accent-900: #312e81;
 
-  --color-goal-on-track-bg:  var(--color-success-50);
-  --color-goal-at-risk-bg:   var(--color-warning-50);
-  --color-goal-off-track-bg: var(--color-danger-50);
+  /* ── COLORS: Semantic Aliases ─────────────────────────── */
+  /* Figma Colors/Semantic/border/default = #f1f5f9 */
+  --color-border: #f1f5f9;
+  --color-border-subtle: #f1f5f9;
+  --color-background: #f8fafd;
+  /* Settings bulk-import / instruction panels */
+  --color-bg-instruction: #f8f9fb;
+  --color-bg-dropzone: #f3f7ff;
+  --color-border-dropzone: #aac8fa;
+  --color-bg-invited: #f5f3ff;
+  --color-bg-page: #f8fafd;
+  --color-surface: #ffffff;
+  --color-bg-surface: #ffffff;
+  --color-surface-subtle: #f1f5f9;
+  --color-nav-active-tint: #edf0ff;
+  /* Figma Colors/Semantic/text/primary = #000000 */
+  --color-text-primary: #000000;
+  --color-text-secondary: #475569;
+  --color-text-tertiary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-inverse: #ffffff;
+  --color-text-disabled: #94a3b8;
 
-  /* ----------------------------------------------------------
-     SEMANTIC ALIASES — UI Roles
-     ---------------------------------------------------------- */
-  --color-bg-page:      var(--color-neutral-50);
-  --color-bg-surface:   var(--color-white);
-  --color-bg-elevated:  var(--color-white);
-  --color-bg-subtle:    var(--color-neutral-100);
+  /* ── COLORS: Icon semantic (Figma Colors/icon/*) ──────── */
+  --color-icon-default: #1e293b;
+  --color-icon-bg: #eff6ff;
+  --color-icon-field-default: #94a3b8;
+  --color-icon-active: #2563eb;
 
-  --color-border:       var(--color-neutral-200);
-  --color-border-strong: var(--color-neutral-300);
+  /* ── COLORS: OKR Goal Health ──────────────────────────── */
+  --color-goal-on-track: #22c55e;
+  --color-goal-at-risk: #f59e0b;
+  --color-goal-off-track: #ef4444;
 
-  --color-text-primary:   var(--color-black);
-  --color-text-secondary: var(--color-neutral-600);
-  --color-text-tertiary:  var(--color-neutral-400);
-  --color-text-disabled:  var(--color-neutral-300);
-  --color-text-inverse:   var(--color-white);
-  --color-text-link:      var(--color-primary-600);
+  /* ── COLORS: OKR Level (Figma OKR Cascading mockup) ───── */
+  --color-okr-company: #4f46e5;
+  --color-okr-company-bg: rgba(79, 70, 229, 0.1);
+  --color-okr-department: #3b82f6;
+  --color-okr-department-bg: rgba(59, 130, 246, 0.1);
+  --color-okr-team: #059669;
+  --color-okr-team-progress: #10b981;
+  --color-okr-team-bg: rgba(16, 185, 129, 0.1);
+  --color-okr-individual: #475569;
+  --color-okr-individual-bg: #f1f5f9;
 
-  --color-action-primary:       var(--color-primary-600);
-  --color-action-primary-hover: var(--color-primary-800);
-  --color-action-primary-active:var(--color-primary-600);
-  --color-action-primary-text:  var(--color-white);
+  /* ── COLORS: Owner role tags (Figma OKR Cascading) ────── */
+  --color-tag-management-bg: #eef2ff;
+  --color-tag-management-text: #4338ca;
+  --color-tag-dept-head-bg: #faf5ff;
+  --color-tag-dept-head-text: #7e22ce;
+  --color-tag-lead-bg: #eff6ff;
+  --color-tag-lead-text: #1d4ed8;
 
-  /* ----------------------------------------------------------
-     BUTTON STATES
-     ---------------------------------------------------------- */
-  --color-button-primary-default:  var(--color-primary-600);
-  --color-button-primary-hover:    var(--color-primary-800);
-  --color-button-primary-focus:    var(--color-primary-600);
-  --color-button-primary-active:   var(--color-primary-600);
-  --color-button-primary-disabled: var(--color-primary-400);
-
-  --color-button-secondary-default:  var(--color-white);
-  --color-button-secondary-hover:    var(--color-primary-200);
-  --color-button-secondary-focus:    var(--color-white);
-
-  --color-button-danger-default:  var(--color-danger-500);
-  --color-button-danger-hover:    var(--color-danger-600);
-  --color-button-danger-active:   var(--color-danger-600);
-  --color-button-danger-focus:    var(--color-danger-500);
-  --color-button-danger-disabled: var(--color-neutral-300);
-
-  --color-button-text-primary:   var(--color-primary-600);
-  --color-button-text-on-primary:var(--color-white);
-  --color-button-text-disabled:  var(--color-neutral-300);
-  --color-button-text-neutral:   var(--color-neutral-300);
-  --color-button-text-danger:    var(--color-danger-500);
-
-  /* ----------------------------------------------------------
-     TYPOGRAPHY
-     ---------------------------------------------------------- */
-  --font-family-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-family-mono: 'JetBrains Mono', ui-monospace, 'Fira Code', monospace;
-
-  /* Font sizes (rem) */
-  --font-size-xs:   0.75rem;   /* 12px */
-  --font-size-sm:   0.875rem;  /* 14px */
-  --font-size-base: 1rem;      /* 16px */
-  --font-size-lg:   1.125rem;  /* 18px */
-  --font-size-xl:   1.25rem;   /* 20px */
-  --font-size-2xl:  1.5rem;    /* 24px */
-  --font-size-3xl:  1.875rem;  /* 30px */
-  --font-size-4xl:  2.25rem;   /* 36px */
-  --font-size-mono: 0.8125rem; /* 13px */
-
-  /* Line heights */
-  --line-height-xs:   18px;
-  --line-height-sm:   21px;
-  --line-height-base: 24px;
-  --line-height-lg:   25.2px;
-  --line-height-xl:   26px;
-  --line-height-2xl:  30px;
-  --line-height-3xl:  36px;
-  --line-height-4xl:  39.6px;
-  --line-height-mono: 19.5px;
-
-  /* Font weights */
-  --font-weight-regular:  400;
-  --font-weight-medium:   500;
-  --font-weight-semibold: 600;
-  --font-weight-bold:     700;
-
-  /* Letter spacing */
-  --letter-spacing-tight:  -0.025em;
-  --letter-spacing-normal:  0em;
-  --letter-spacing-wide:    0.025em;
-  --letter-spacing-wider:   0.05em;
-  --letter-spacing-widest:  0.1em;
-
-  /* ----------------------------------------------------------
-     SPACING (4px base scale)
-     ---------------------------------------------------------- */
-  --space-0:   0px;
+  /* ── SPACING ──────────────────────────────────────────── */
+  --space-0: 0px;
   --space-0-5: 2px;
-  --space-1:   4px;
+  --space-1: 4px;
   --space-1-5: 6px;
-  --space-2:   8px;
+  --space-2: 8px;
   --space-2-5: 10px;
-  --space-3:   12px;
-  --space-3-5: 14px;
-  --space-4:   16px;
-  --space-5:   20px;
-  --space-6:   24px;
-  --space-7:   28px;
-  --space-8:   32px;
-  --space-9:   36px;
-  --space-10:  40px;
-  --space-12:  48px;
-  --space-14:  56px;
-  --space-16:  64px;
-  --space-20:  80px;
-  --space-24:  96px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
 
-  /* ----------------------------------------------------------
-     BORDER RADIUS
-     ---------------------------------------------------------- */
+  /* ── TYPOGRAPHY ───────────────────────────────────────── */
+  --font-family-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-mono: 'JetBrains Mono', ui-monospace, Fira Code, monospace;
+  /* Figma chip text style "Plus Jakarta Sans/XS/B2" — loaded via next/font in layout.tsx */
+  --font-family-jakarta: var(--font-jakarta, 'Plus Jakarta Sans'), 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+
+  --font-size-2xs: 11px;
+  --font-size-xs: 12px;
+  --font-size-xs-plus: 13px;
+  --font-size-sm: 14px;
+  --font-size-base: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 20px;
+  --font-size-2xl: 24px;
+  --font-size-3xl: 30px;
+  --font-size-4xl: 36px;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0em;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+  --letter-spacing-label: 0.06em; /* Figma Label/XS: 0.72px @ 12px */
+
+  /* ── BORDER RADIUS ────────────────────────────────────── */
   --radius-none: 0px;
-  --radius-sm:   4px;
-  --radius-md:   6px;
-  --radius-lg:   8px;
-  --radius-xl:   12px;
-  --radius-2xl:  16px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
   --radius-full: 9999px;
 
-  /* ----------------------------------------------------------
-     SHADOWS
-     ---------------------------------------------------------- */
-  --shadow-xs:  0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-sm:  0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
-  --shadow-md:  0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
-  --shadow-lg:  0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
-  --shadow-xl:  0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+  /* ── SHADOWS ──────────────────────────────────────────── */
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.10), 0 1px 2px -1px rgb(0 0 0 / 0.10);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.10), 0 8px 10px -6px rgb(0 0 0 / 0.10);
+  --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 
-  /* ----------------------------------------------------------
-     Z-INDEX SCALE
-     ---------------------------------------------------------- */
-  --z-base:    0;
-  --z-raised:  10;
-  --z-dropdown:100;
-  --z-sticky:  200;
+  /* ── SHADOWS: Figma elevations ────────────────────────── */
+  --shadow-elevation-01: 0px 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-elevation-02: 1px 6px 24px 2px rgba(3, 6, 18, 0.12);
+  --shadow-elevation-03: 1.5px 9px 36px 3px rgba(3, 6, 18, 0.12);
+  --shadow-glow-primary: 0px 4px 6px 0px rgba(59, 130, 246, 0.3), 0px 10px 15px 0px rgba(59, 130, 246, 0.3);
+  --shadow-glow-primary-sm: 0px 4px 3px rgba(59, 130, 246, 0.2), 0px 10px 7.5px rgba(59, 130, 246, 0.2);
+  --shadow-button-primary: 0px 4px 6px 0px rgba(59, 130, 246, 0.3);
+
+  /* ── GRADIENTS: Stat cards ────────────────────────────── */
+  --gradient-stat-primary: linear-gradient(170deg, var(--color-primary-400) 0%, var(--color-primary-600) 100%);
+  --gradient-stat-success: linear-gradient(170deg, var(--color-success-400) 0%, var(--color-success-600) 100%);
+  --gradient-stat-accent: linear-gradient(170deg, var(--color-accent-400) 0%, var(--color-accent-600) 100%);
+  --gradient-brain-panel: linear-gradient(104.04deg, #1e1b4b 0%, #3730a3 100%);
+  --color-brain-glass-bg: rgb(255 255 255 / 0.1);
+  --color-brain-glass-border: rgb(255 255 255 / 0.2);
+  --space-brain-section-gap: 26px;
+  --space-brain-summary-inner-gap: 3px;
+  --space-brain-insights-title-gap: 26px;
+  --space-brain-insight-row-gap: 7px;
+  --space-brain-insight-detail-gap: 5px;
+  --size-brain-insights-scroll: 291px;
+  --size-brain-period-column: 80px;
+  --gradient-quick-access-primary: linear-gradient(135deg, var(--color-primary-600) 0%, var(--color-primary-800) 100%);
+  --gradient-quick-access-success: linear-gradient(135deg, var(--color-success-500) 0%, rgb(34 197 94 / 0) 100%);
+  --gradient-quick-access-warning: linear-gradient(135deg, var(--color-warning-500) 0%, rgb(245 158 11 / 0) 100%);
+
+  /* ── LAYOUT DIMENSIONS ────────────────────────────────── */
+  --layout-sidebar-width: 248px;
+  --layout-sidebar-collapsed: 72px;
+  --layout-topbar-height: 64px;
+  --layout-gutter: 12px;
+  --layout-content-gap: 28px;
+
+  /* ── Z-INDEX ──────────────────────────────────────────── */
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
   --z-overlay: 300;
-  --z-modal:   400;
-  --z-toast:   500;
+  --z-modal: 400;
+  --z-toast: 500;
 
-  /* ----------------------------------------------------------
-     TRANSITIONS
-     ---------------------------------------------------------- */
-  --duration-fast:   100ms;
+  /* ── TRANSITIONS ──────────────────────────────────────── */
+  --duration-fast: 100ms;
   --duration-normal: 200ms;
-  --duration-slow:   300ms;
-  --ease-default:    cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-slow: 300ms;
+  --ease-default: ease;
+  --ease-in: ease-in;
+  --ease-out: ease-out;
+  --ease-in-out: ease-in-out;
+}
+
+/* ── DARK MODE TOKENS ─────────────────────────────────── */
+[data-theme="dark"] {
+  --color-primary-50: #172554;
+  --color-primary-100: #1e3a8e;
+  --color-primary-200: #1e40af;
+  --color-primary-300: #1d4ed8;
+  --color-primary-400: #2563eb;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #60a5fa;
+  --color-primary-700: #93c5fd;
+  --color-primary-800: #bfdbfe;
+  --color-primary-900: #dbeafe;
+  --color-primary-950: #eff6ff;
+
+  --color-neutral-50: #020617;
+  --color-neutral-100: #0f172a;
+  --color-neutral-200: #1e293b;
+  --color-neutral-300: #334155;
+  --color-neutral-400: #475569;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #94a3b8;
+  --color-neutral-700: #cbd5e1;
+  --color-neutral-800: #e2e8f0;
+  --color-neutral-900: #f1f5f9;
+  --color-neutral-950: #f8fafc;
+
+  --color-border: #334155;
+  --color-border-subtle: #1e293b;
+  --color-background: #0f172a;
+  --color-bg-page: #0f172a;
+  --color-surface: #1e293b;
+  --color-bg-surface: #1e293b;
+  --color-surface-subtle: #334155;
+  --color-nav-active-tint: #1e2a4a;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #64748b;
+  --color-text-muted: #94a3b8;
+  --color-text-inverse: #0f172a;
 }
